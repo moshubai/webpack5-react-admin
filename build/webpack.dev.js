@@ -22,8 +22,7 @@ module.exports = merge(commonJs, {
   module: {
     rules: [
       {
-        // test: /\.(sa|sc|c)ss$/,
-        test: /\.(scss|css)$/,
+        test: /\.(sa|sc|c)ss$/,
         use: [
           {
             loader: 'style-loader',
@@ -34,19 +33,32 @@ module.exports = merge(commonJs, {
           },
           { loader: 'postcss-loader', options: { sourceMap: true } },
           {
-            loader: 'sass-loader', options: {
-              sourceMap: true,//     includePaths: [
-              //       // util.inProjectSrc('styles'),
-              //     ]
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              sassOptions: {
+                indentWidth: 4,//??
+                includePaths: [
+                  util.inProjectSrc('styles'),
+                ]
+              }
 
             }
           },
-          
+
         ]
       },
     ]
   },
-  devtool: 'source-map', // inline把js打包在一个文件里面 hidden分离出来 eval也是分离
+  cache: {
+    type: 'filesystem',
+    // 可选配置
+    buildDependencies: {
+      config: [__filename], // 当构建依赖的config文件（通过 require 依赖）内容发生变化时，缓存失效
+    },
+    name: 'development-cache',
+  },
+  devtool: 'eval-cheap-module-source-map', // inline把js打包在一个文件里面 hidden分离出来 eval也是分离
   // 组件
   plugins: [
     new HtmlWebpackPlugin({
