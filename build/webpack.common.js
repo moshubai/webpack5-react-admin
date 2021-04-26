@@ -80,6 +80,7 @@ module.exports = {
     ]
   },
   optimization: {
+    // runtimeChunk: true,
     splitChunks: {
       cacheGroups: {
         // 抽离第三方插件

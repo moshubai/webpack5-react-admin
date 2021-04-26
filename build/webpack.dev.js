@@ -16,7 +16,7 @@ module.exports = merge(commonJs, {
   // 出口
   output: {
     path: util.resolve('dist'),
-    filename: 'js/[name].[hash].js',
+    filename: 'js/[name].[chunkhash].js',
   },
   // 模块化
   module: {
