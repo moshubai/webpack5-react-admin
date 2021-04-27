@@ -10,9 +10,12 @@ const __TEST__ = env === 'test'
 const __PROD__ = env === 'production'
 
 module.exports = {
+  // 入口
+  entry: {
+    main: [util.inProjectSrc('main.js')],
+  },
   // 出口
   output: {
-
     publicPath, // 打包后的资源的访问路径前缀
     clean: true,
   },
@@ -84,7 +87,7 @@ module.exports = {
     splitChunks: {
       cacheGroups: {
         // 抽离第三方插件
-        vendors: {
+        defaultVendors: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
           enforce: true,
@@ -101,7 +104,6 @@ module.exports = {
     }
   },
   plugins: [
-
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(env) },
       __DEV__,

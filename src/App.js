@@ -29,7 +29,7 @@ import './styles/index.scss'
 const App = () => {
   return (
     <>
-      <h2>更新了啊</h2>
+      <h2>更新了啊n,热更新了</h2>
     </>
   );
 };

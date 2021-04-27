@@ -4,15 +4,13 @@ const util = require('./util')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 
+const SpeedMeasureWebpack5Plugin = require("speed-measure-webpack-plugin");
+const smw = new SpeedMeasureWebpack5Plugin();
 
-
-module.exports = merge(commonJs, {
+const devConfig = merge(commonJs, {
   // 打包模式
   mode: 'development',
-  // 入口
-  entry: {
-    main: [util.inProjectSrc('main')],
-  },
+  
   // 出口
   output: {
     path: util.resolve('dist'),
@@ -42,7 +40,6 @@ module.exports = merge(commonJs, {
                   util.inProjectSrc('styles'),
                 ]
               }
-
             }
           },
 
@@ -78,3 +75,4 @@ module.exports = merge(commonJs, {
 })
 
 
+module.exports = smw.wrap(devConfig)
