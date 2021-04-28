@@ -32,3 +32,14 @@ import ReactDOM from 'react-dom'
 const EL = document.getElementById('root')
 ReactDOM.render(5555555555, EL)
 ```
+
+
+
+
+
+
+
+记录
+```
+mobx mobx-react babel-preset-mobx
+```

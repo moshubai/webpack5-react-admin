@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+      "useDefineForClassFields": true,
+      "experimentalDecorators": true,
+  },
+  "include": ["./src/**/*", "./declaration.d.ts"],
+  "exclude": ["node_modules"]
+}

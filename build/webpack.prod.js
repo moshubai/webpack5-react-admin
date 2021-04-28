@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin')
-const util = require('./util')
+const paths = require('./util')
 
 // const SpeedMeasureWebpack5Plugin = require("speed-measure-webpack-plugin");
 // const smw = new SpeedMeasureWebpack5Plugin();
@@ -19,7 +19,7 @@ const prodWebpack = merge(commonJs, {
 
   // 出口
   output: {
-    path: util.resolve('/dist'),
+    path: paths.build,
     filename: 'js/[name].[contenthash].js',
   },
 
@@ -45,7 +45,7 @@ const prodWebpack = merge(commonJs, {
               sassOptions: {
                 indentWidth: 4,//??
                 includePaths: [
-                  util.inProjectSrc('styles'),
+                  paths.styles,
                 ]
               }
             },
@@ -95,7 +95,7 @@ const prodWebpack = merge(commonJs, {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html', // html模板的生成路径
-      template: util.inProjectSrc('index.html'), // html模板
+      template: paths.src + '/index.html',// html模板
       inject: true, // true：默认值，script标签位于html文件的 body 底部
       hash: true, // 在打包的资源插入html会加上hash
       //  html 文件进行压缩

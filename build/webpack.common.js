@@ -1,50 +1,27 @@
-
-const path = require('path')
+const ip = require('ip')
+// const path = require('path')
 const webpack = require('webpack')
-const util = require('./util')
-const { publicPath, globals, env } = require('../setting')
+const paths = require('./util')
+const { globals, env, port } = require('../src/setting')
+
 // const PnpWebpackPlugin = require('pnp-webpack-plugin')
 
 const __DEV__ = env === 'development'
 const __TEST__ = env === 'test'
 const __PROD__ = env === 'production'
+const publicPath = __DEV__ ? '/' : './'
 
 module.exports = {
   // 入口
   entry: {
-    main: [util.inProjectSrc('main.js')],
+    main: [paths.src + '/main.js'],
   },
   // 出口
   output: {
     publicPath, // 打包后的资源的访问路径前缀
     clean: true,
   },
-  resolve: {
-    modules: [
-      util.resolve('src'), // 指定当前目录下的 node_modules 优先查找
-      'node_modules', // 将默认写法放在后面
-    ],
-    extensions: ['.js', '.jsx', '.json', '.scss', '.jpg', '.png'],
-    alias: {
-      '@': util.resolve('src'),
-      pages: util.resolve('src/pages'),
-      routes: util.resolve('src/routes'),
-      layout: util.resolve('src/page-layout'),
-      components: util.resolve('src/components'),
-      // mobx: path.resolve(__dirname, '../node_modules/mobx/lib/mobx.js'),
-      func: util.resolve('src/func'),
-      mixin: util.resolve('src/styles/_mixin.scss'),
-      style: util.resolve('src/styles'),
-      Api: util.resolve('src/api/index'),
-      // react: path.resolve(__dirname, './node_modules/react/umd/react.production.min.js'),
-      // 'react-dom': path.resolve(__dirname, './node_modules/react-dom/umd/react-dom.production.min.js')
-    },
 
-    // add pnp
-    plugins: [
-      // PnpWebpackPlugin
-    ]
-  },
   // 模块
   module: {
     rules: [
@@ -60,11 +37,12 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              cacheDirectory: true
+              cacheDirectory: true,
+
             }
           }
         ],
-        exclude: "/node_modules/", // 屏蔽不需要处理的文件（文件夹）（可选）
+        exclude: '/node_modules/', // 屏蔽不需要处理的文件（文件夹）（可选）
       },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
@@ -72,7 +50,7 @@ module.exports = {
         type: 'asset',
         parser: {
           dataUrlCondition: {
-            maxSize: 30 * 1024, //小于这个大小的图片将使用内敛的方式，不会打包出文件 默认是 8 * 1024
+            maxSize: 30 * 1024, // 小于这个大小的图片将使用内敛的方式，不会打包出文件 默认是 8 * 1024
           },
         },
       },
@@ -80,6 +58,30 @@ module.exports = {
         test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
         type: 'asset/resource',
       }
+    ]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.scss', '.jpg', '.png'],
+    alias: {
+      '@': paths.src,
+      pages: paths.resolve('src/pages'),
+      routes: paths.resolve('src/routes'),
+      layout: paths.resolve('src/page-layout'),
+      components: paths.resolve('src/components'),
+      func: paths.resolve('src/func'),
+      style: paths.resolve('src/styles'),
+      Api: paths.resolve('src/api/index'),
+      // mobx: paths.resolve('/node_modules/mobx/lib/mobx.es6.js')
+      // react: path.resolve(__dirname, './node_modules/react/umd/react.production.min.js'),
+      // 'react-dom': path.resolve(__dirname, './node_modules/react-dom/umd/react-dom.production.min.js')
+    },
+    modules: [
+      paths.src, // 指定当前目录下的 node_modules 优先查找
+      'node_modules', // 将默认写法放在后面
+    ],
+    // add pnp
+    plugins: [
+      // PnpWebpackPlugin
     ]
   },
   optimization: {

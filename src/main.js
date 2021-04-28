@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-
 import App from './App.js'
 const EL = document.getElementById('root')
 
@@ -26,20 +25,18 @@ if (__DEV__) {
         console.error(e)
       }
     }
-    module.hot.accept('./App.js', () => Promise.resolve()
-      .then(() => ReactDOM.unmountComponentAtNode(EL))
-      .then(render)
-    )
-    // module.hot.accept([
-    //   './App',
-    //   // './mobx'
-    // ], () => Promise.resolve()
+    // module.hot.accept('./App.js', () => Promise.resolve()
     //   .then(() => ReactDOM.unmountComponentAtNode(EL))
     //   .then(render)
-    //   .then(res=>{
-    //     console.log('更新了'); //log
-    //   })
     // )
+    module.hot.accept([
+      './App',
+      './mobx'
+    ], () => Promise.resolve()
+      .then(() => ReactDOM.unmountComponentAtNode(EL))
+      .then(render)
+
+    )
   }
 }
 

@@ -4,7 +4,7 @@ const chalk = require('chalk')
 const webpack = require('webpack')
 const logger = require('../logger')
 const webpackConfig = require('../webpack.prod')
-const setting = require('../../setting')
+const setting = require('../../src/setting.js')
 
 const runWebpackCompiler = (wkConfig) => {
   return new Promise((resolve, reject) => {

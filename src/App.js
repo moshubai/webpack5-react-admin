@@ -1,37 +1,26 @@
 import React from 'react'
 import './styles/index.scss'
+import { ConfigProvider } from 'antd'
 
-// import { ConfigProvider } from 'antd'
+import { Provider } from 'mobx-react'
+import store from './mobx/index.js'
 
-// import { Provider } from 'react-redux'
-// import store from './store/index'
+import Router from 'routes'
+import zhCN from 'antd/es/locale-provider/zh_CN'
+import ErrorBoundary from 'components/error-boundary'
 
-// import Router from 'routes'
-// import zhCN from 'antd/es/locale-provider/zh_CN'
-// import ErrorBoundary from 'components/error-boundary'
-
-// class App extends React.PureComponent {
-//   render () {
-//     return (
-//       <ErrorBoundary>
-//         <Provider store={store}>
-//           <ConfigProvider locale={zhCN}>
-//             <Router/>
-//           </ConfigProvider>
-//         </Provider>
-//       </ErrorBoundary>
-//     )
-//   }
-// }
-// export default App
-
-
-const App = () => {
-  return (
-    <>
-      <h2>更新了啊n,热更新了</h2>
-    </>
-  );
-};
-
-export default App;
+console.log('store', store) // log
+class App extends React.PureComponent {
+  render () {
+    return (
+      <ErrorBoundary>
+        <Provider {...store}>
+          <ConfigProvider locale={zhCN}>
+            <Router/>
+          </ConfigProvider>
+        </Provider>
+      </ErrorBoundary>
+    )
+  }
+}
+export default App

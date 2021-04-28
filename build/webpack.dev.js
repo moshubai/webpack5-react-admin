@@ -1,19 +1,19 @@
 const { merge } = require('webpack-merge')
 const commonJs = require('./webpack.common')
-const util = require('./util')
+const paths = require('./util')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 
-const SpeedMeasureWebpack5Plugin = require("speed-measure-webpack-plugin");
-const smw = new SpeedMeasureWebpack5Plugin();
+// const SpeedMeasureWebpack5Plugin = require("speed-measure-webpack-plugin");
+// const smw = new SpeedMeasureWebpack5Plugin();
 
 const devConfig = merge(commonJs, {
   // 打包模式
   mode: 'development',
-  
+
   // 出口
   output: {
-    path: util.resolve('dist'),
+    path: paths.build,
     filename: 'js/[name].[chunkhash].js',
   },
   // 模块化
@@ -27,7 +27,7 @@ const devConfig = merge(commonJs, {
           },
           {
             loader: 'css-loader',
-            options: { sourceMap: true, importLoaders: 1, modules: true },
+            options: { sourceMap: true },
           },
           { loader: 'postcss-loader', options: { sourceMap: true } },
           {
@@ -35,9 +35,9 @@ const devConfig = merge(commonJs, {
             options: {
               sourceMap: true,
               sassOptions: {
-                indentWidth: 4,//??
+                // indentWidth: 4,//??
                 includePaths: [
-                  util.inProjectSrc('styles'),
+                  paths.styles,
                 ]
               }
             }
@@ -47,19 +47,19 @@ const devConfig = merge(commonJs, {
       },
     ]
   },
-  cache: {
-    type: 'filesystem',
-    // 可选配置
-    buildDependencies: {
-      config: [__filename], // 当构建依赖的config文件（通过 require 依赖）内容发生变化时，缓存失效
-    },
-    name: 'development-cache',
-  },
-  devtool: 'eval-cheap-module-source-map', // inline把js打包在一个文件里面 hidden分离出来 eval也是分离
+  // cache: {
+  //   type: 'filesystem',
+  //   // 可选配置
+  //   buildDependencies: {
+  //     config: [__filename], // 当构建依赖的config文件（通过 require 依赖）内容发生变化时，缓存失效
+  //   },
+  //   name: 'development-cache',
+  // },
+  devtool: 'inline-source-map', // inline把js打包在一个文件里面 hidden分离出来 eval也是分离
   // 组件
   plugins: [
     new HtmlWebpackPlugin({
-      template: util.inProjectSrc('index.html'),
+      template: paths.src + '/index.html',
       filename: 'index.html',
       inject: true,
       minify: {
@@ -75,4 +75,4 @@ const devConfig = merge(commonJs, {
 })
 
 
-module.exports = smw.wrap(devConfig)
+module.exports = devConfig//smw.wrap(devConfig)

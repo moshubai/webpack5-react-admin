@@ -1,23 +1,22 @@
 
-const setting = require('../../setting.js')
+const setting = require('../../src/setting.js')
 const devConfig = require('../webpack.dev.js')
 const logger = require('../logger.js')
-const util = require('../util')
+const paths = require('../util')
 const ip = require('ip').address()
 const webpack = require('webpack')
 const WebpackServer = require('webpack-dev-server')
 const net = require('net')
 
-
 const options = {
-  contentBase: util.resolve('dist'),
+  contentBase: paths.build,
   open: true, // 自动打开浏览器
   host: ip, // ip
   publicPath: devConfig.output.publicPath,
   progress: true, // 将运行进度输出到控制台。
   compress: true, // 启用 gzip 压缩。
   // quiet: true,
-  stats: 'errors-only',
+  // stats: 'errors-only',
   // index: 'index.html', // 启动索引html文件,默认index.html
   hot: true, // 是否启用热替换
   // hotOnly: true, // 启用热模块替换
@@ -34,12 +33,12 @@ const options = {
   //     }
   //   }
   // }
-};
+}
 
-WebpackServer.addDevServerEntrypoints(devConfig, options);
+WebpackServer.addDevServerEntrypoints(devConfig, options)
 const compiler = webpack(devConfig)
 
-function listenPort(port) {
+function listenPort (port) {
   const server = net.createServer().listen(port)
   server.on('listening', () => {
     server.close()
@@ -48,17 +47,16 @@ function listenPort(port) {
   })
   server.on('error', (e) => {
     if (e.code === 'EADDRINUSE') {
-      logger.warn('端口号被占用，修改端口号为' + port)
       listenPort(+port + 1)
+      logger.warn('端口号被占用，修改端口号为' + port)
     }
   })
 }
 
-function startDevServer(port) {
+function startDevServer (port) {
   const devServer = new WebpackServer(compiler, options)
   devServer.listen(port, ip, () => {
-    logger.success(`Listening to http://${ip}:${port}`);
-  });
-
+    logger.success(`Listening to http://${ip}:${port}`)
+  })
 }
 listenPort(setting.port)
