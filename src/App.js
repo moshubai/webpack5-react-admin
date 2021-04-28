@@ -3,7 +3,7 @@ import './styles/index.scss'
 import { ConfigProvider } from 'antd'
 
 import { Provider } from 'mobx-react'
-import store from './mobx/index.js'
+import store from './mobx'
 
 import Router from 'routes'
 import zhCN from 'antd/es/locale-provider/zh_CN'

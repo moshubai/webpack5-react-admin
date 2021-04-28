@@ -1,5 +1,5 @@
 const ip = require('ip')
-// const path = require('path')
+const path = require('path')
 const webpack = require('webpack')
 const paths = require('./util')
 const { globals, env, port } = require('../src/setting')
@@ -75,8 +75,9 @@ module.exports = {
       // react: path.resolve(__dirname, './node_modules/react/umd/react.production.min.js'),
       // 'react-dom': path.resolve(__dirname, './node_modules/react-dom/umd/react-dom.production.min.js')
     },
+
     modules: [
-      paths.src, // 指定当前目录下的 node_modules 优先查找
+      path.resolve(__dirname, '../'), // 指定当前目录下的 node_modules 优先查找
       'node_modules', // 将默认写法放在后面
     ],
     // add pnp

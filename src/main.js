@@ -31,7 +31,7 @@ if (__DEV__) {
     // )
     module.hot.accept([
       './App',
-      './mobx'
+      './mobx/index.js'
     ], () => Promise.resolve()
       .then(() => ReactDOM.unmountComponentAtNode(EL))
       .then(render)

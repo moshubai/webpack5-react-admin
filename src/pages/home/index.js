@@ -8,8 +8,8 @@ class HomePage extends React.Component {
   static propTypes = {
     count: PropTypes.number,
     add: PropTypes.func,
-    history: PropTypes.array,
-    store: PropTypes.object
+    history: PropTypes.object,
+    example: PropTypes.object
   }
 
   constructor (props) {
@@ -25,12 +25,13 @@ class HomePage extends React.Component {
 
   render () {
     console.log('this.props', this.props) // log
-    const { store } = this.props
+    const { example } = this.props
+    console.log('example', example) // log
     return (
       <React.Fragment>
-        {store.count}
-        <button onClick={store.add}>add</button>
-        <button onClick={store.down}>reduce</button>
+        {example.count}
+        <button onClick={() => example.add()}>add</button>
+        <button onClick={() => example.down()}>reduce</button>
         <button onClick={() => this.goPage()}>
           测试跳转
       </button>

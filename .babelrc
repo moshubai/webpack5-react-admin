@@ -1,20 +1,5 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "modules": false,
-        "targets": {
-          "browsers": [
-            "> 1%",
-            "last 2 versions",
-            "not ie <= 8"
-          ]
-        }
-      }
-    ],
-    "@babel/preset-react"
-  ],
+  
   "plugins": [
     [
       "@babel/plugin-proposal-decorators",
@@ -25,7 +10,7 @@
     [
       "@babel/plugin-proposal-class-properties",
       {
-        "loose": false
+        "loose": true
       }
     ],
     // In contrast to MobX 4/5, "loose" must be false!    ^
@@ -44,5 +29,21 @@
         "style": "css"
       }
     ]
+  ],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "targets": {
+          "browsers": [
+            "> 1%",
+            "last 2 versions",
+            "not ie <= 8"
+          ]
+        }
+      }
+    ],
+    "@babel/preset-react"
   ]
 }
